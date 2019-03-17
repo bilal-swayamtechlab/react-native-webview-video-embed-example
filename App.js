@@ -5,9 +5,13 @@ import {
   Text,
   View,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions,
+  ScrollView,
+  SafeAreaView
 } from 'react-native';
 import WebView from 'react-native-android-fullscreen-webview-video';
+const width = Dimensions.get('window').width;
 
 export default class App extends Component {
   state = {
@@ -15,53 +19,33 @@ export default class App extends Component {
   };
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native Webview example!
-        </Text>
+      <SafeAreaView style={styles.container}>
+        {/* headline */}
+        <Text style={styles.welcome}>Welcome to</Text>
+        <Text style={styles.welcome}>React Native Webview Example</Text>
 
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <TouchableOpacity
-            style={styles.loginScreenButton}
-            onPress={() => navigate('HomeScreen')}
-            underlayColor="#fff"
-          >
-            <Text style={styles.loginText}>YouTube</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.loginScreenButton}
-            onPress={() => navigate('HomeScreen')}
-            underlayColor="#fff"
-          >
-            <Text style={styles.loginText}>Vimeo</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.loginScreenButton}
-            onPress={() => navigate('HomeScreen')}
-            underlayColor="#fff"
-          >
-            <Text style={styles.loginText}>DailyMotion</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View>
-          {/* <Text>Video area</Text> */}
-
+        {/* video embed */}
+        <ScrollView
+          style={{
+            backgroundColor: 'black',
+            height: (width - 30) / 1.77777777778,
+            width: width - 30,
+            margin: 0,
+            padding: 0
+          }}
+        >
           <WebView
             useWebKit={true}
             source={{
-              uri: this.props.videoSource
+              // uri: this.props.videoSource
+              uri: 'https://www.youtube.com/embed/_sZH-psg9yE'
             }}
             style={{
-              // marginVertical: 20,
-              // zIndex: -1,
-              // elevation: -1,
               //   backgroundColor: this.state.webviewBackgroundColor,
               flex: 1,
-              height: (width - 25) / 1.77777777778,
-              width: width - 25,
+              height: (width - 30) / 1.77777777778,
+              width: width - 30,
               opacity: this.state.webviewBackgroundColor
-              //   backgroundColor: '#000'
             }}
             onLoadStart={() => {
               this.setState({ webviewBackgroundColor: 0 });
@@ -78,49 +62,74 @@ export default class App extends Component {
               //     };
             }}
           />
+        </ScrollView>
+
+        {/* buttons */}
+        <View style={{ height: 100 }}>
+          <View
+            style={{
+              justifyContent: 'space-between',
+              flex: 1,
+              flexDirection: 'row'
+            }}
+          >
+            <TouchableOpacity
+              style={styles.loginScreenButton}
+              onPress={() => navigate('HomeScreen')}
+              underlayColor="#fff"
+            >
+              <Text style={styles.loginText}>YouTube</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.loginScreenButton}
+              onPress={() => navigate('HomeScreen')}
+              underlayColor="#fff"
+            >
+              <Text style={styles.loginText}>Vimeo</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.loginScreenButton}
+              onPress={() => navigate('HomeScreen')}
+              underlayColor="#fff"
+            >
+              <Text style={styles.loginText}>DailyMotion</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
-        <Text style={styles.instructions}>
-          Press a button above to play each video
-        </Text>
-      </View>
+        {/* instructions */}
+        <View>
+          <Text style={styles.instructions}>
+            Press a button above to play each video
+          </Text>
+        </View>
+      </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor: '#F5FCFF',
-    marginVertical: 100
+    marginVertical: 100,
+    margin: 15
   },
-  // welcome: {
-  //   fontSize: 20,
-  //   textAlign: 'center',
-  //   margin: 10
-  // },
-  // instructions: {
-  //   textAlign: 'center',
-  //   color: '#333333',
-  //   marginBottom: 5
-  // },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10
+  },
+  instructions: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: '#333333',
+    margin: 10
+  },
   loginScreenButton: {
-    // marginRight: 40,
-    // marginLeft: 40,
-    // marginTop: 10,
-    // paddingTop: 10,
-    // paddingBottom: 10,
     backgroundColor: 'blue',
-    // borderRadius: 10,
-    // borderWidth: 1,
-    // borderColor: '#fff',
-    // width: '100%'
-    alignSelf: 'stretch',
-    height: 60,
-    // textAlign: 'center',
-    margin: 10,
+
+    width: '30%',
+    height: 40,
+    marginVertical: 10,
     padding: 10,
     borderRadius: 5
   },
@@ -128,7 +137,5 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     fontWeight: 'bold'
-    // paddingLeft: 10,
-    // paddingRight: 10
   }
 });
