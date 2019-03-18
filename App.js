@@ -92,7 +92,8 @@ export default class App extends Component {
               ]}
               onPress={() =>
                 this.setState({
-                  uri: 'https://player.vimeo.com/video/192511901'
+                  uri:
+                    'https://player.vimeo.com/video/192511901?title=0&byline=0&portrait=0'
                 })
               }
             >
